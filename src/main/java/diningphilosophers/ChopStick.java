@@ -9,12 +9,18 @@ public class ChopStick {
     private boolean iAmFree = true;
 
     public ChopStick() {
-        // Chaque baguette est numérotée 
+        // Chaque baguette est numérotée
         myNumber = ++stickCount;
     }
 
-    // ...
-    
+    public void take() {
+
+    }
+
+    public void release () {
+
+    }
+
     @Override
     public String toString() {
         return "Stick#" + myNumber;

@@ -21,8 +21,20 @@ public class Philosopher
     }
 
     @Override
-    public void run() {
-
+    public void run(){
+        try {
+            think();
+            // Prendre les 2 baguettes
+            myLeftStick.take();
+            myRightStick.take();
+            // Il peut manger
+            eat();
+            // Il relache les baguettes
+            myLeftStick.release();
+            myRightStick.release();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     // Permet d'interrompre le philosophe "proprement" :
