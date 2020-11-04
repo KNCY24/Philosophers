@@ -13,11 +13,45 @@ public class ChopStick {
         myNumber = ++stickCount;
     }
 
-    public void take() {
+    synchronized void take() throws InterruptedException {
+        stickCount = stickCount - 1;
 
+        if (stickCount % 2 != 0) {
+            while (this.iAmFree == false) {
+                wait(); // Peut lever InterruptedException
+            }
+            assert (this.iAmFree == true);
+            this.iAmFree = false;
+            System.out.printf("Je prends la 2ème baguette" + '\n');
+            notifyAll();
+
+        } else {
+
+            assert (this.iAmFree == true);
+            this.iAmFree = false;
+            System.out.printf("Je prends la 1ère baguette" + '\n');
+            notifyAll();
+        }
     }
 
-    public void release () {
+    synchronized void release() throws InterruptedException {
+        stickCount = stickCount + 1;
+        if (stickCount % 2 != 0) {
+            while (this.iAmFree == true) {
+                wait(); // Peut lever InterruptedException
+            }
+            assert (this.iAmFree == false);
+            this.iAmFree = true;
+            System.out.printf("Je dépose la 2ème bague" + '\n');
+            notifyAll();
+
+        } else {
+
+            assert (this.iAmFree == false);
+            this.iAmFree = true;
+            System.out.printf("Je dépose la 1ère bague" + '\n');
+            notifyAll();
+        }
 
     }
 
